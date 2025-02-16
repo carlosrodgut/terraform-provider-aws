@@ -66,6 +66,11 @@ func dataSourceWorkspace() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"network_access_control": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+			},
 			"notification_destinations": {
 				Type:     schema.TypeList,
 				Computed: true,
@@ -139,6 +144,7 @@ func dataSourceWorkspaceRead(ctx context.Context, d *schema.ResourceData, meta i
 	d.Set("grafana_version", workspace.GrafanaVersion)
 	d.Set(names.AttrLastUpdatedDate, workspace.Modified.Format(time.RFC3339))
 	d.Set(names.AttrName, workspace.Name)
+	d.Set("network_access_control", workspace.NetworkAccessControl)
 	d.Set("notification_destinations", workspace.NotificationDestinations)
 	d.Set("organization_role_name", workspace.OrganizationRoleName)
 	d.Set("organizational_units", workspace.OrganizationalUnits)
