@@ -602,6 +602,10 @@ func flattenNetworkAccessControl(apiObject *awstypes.NetworkAccessConfiguration)
 		return []any{}
 	}
 
+	if len(apiObject.PrefixListIds) == 0 && len(apiObject.VpceIds) == 0 {
+		return []any{}
+	}
+
 	tfMap := make(map[string]any)
 	tfMap["prefix_list_ids"] = apiObject.PrefixListIds
 	tfMap["vpce_ids"] = apiObject.VpceIds
